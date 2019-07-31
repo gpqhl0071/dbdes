@@ -1,5 +1,7 @@
 package com.example.bddes.controller;
 
+import cn.hutool.json.JSONUtil;
+
 import com.example.bddes.service.DBService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Map;
@@ -24,6 +27,7 @@ public class DBController {
   private DBService dbService;
 
   @RequestMapping(value = "/db/query", method = RequestMethod.GET)
+  @ResponseBody
   public String toDBIndex(Model model, HttpServletResponse response,
       HttpServletRequest request) throws Exception {
 
@@ -32,9 +36,10 @@ public class DBController {
 
     List<Map<String, Object>> resultList = dbService.query(schema, tableName);
 
-    model.addAttribute("list", resultList);
+//    model.addAttribute("list", resultList);
 
-    return "database/dbMain";
+//    return "database/dbMain";
+    return JSONUtil.toJsonStr(resultList);
   }
 
 }

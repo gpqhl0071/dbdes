@@ -17,4 +17,10 @@ public class IndexController {
     return "database/index";
   }
 
+  @RequestMapping(value = "/toTableIndex", method = RequestMethod.GET)
+  public String toTableIndex(){
+
+    return "database/toTableIndex";
+  }
+
 }

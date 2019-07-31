@@ -8,19 +8,99 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+    <script>
+        function CreateTableFromJSON(json) {
+
+            // EXTRACT VALUE FOR HTML HEADER.
+            // ('Book ID', 'Book Name', 'Category' and 'Price')
+            var col = [];
+            for (var i = 0; i < json.length; i++) {
+                for (var key in json[i]) {
+                    if (col.indexOf(key) === -1) {
+                        col.push(key);
+                    }
+                }
+            }
+
+            // CREATE DYNAMIC TABLE.
+            var table = document.createElement("table");
+
+            // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
+
+            var tr = table.insertRow(-1);                   // TABLE ROW.
+
+            for (var i = 0; i < col.length; i++) {
+                var th = document.createElement("th"); // TABLE HEADER.
+                th.innerHTML = col[i];
+                tr.appendChild(th);
+            }
+
+            // ADD JSON DATA TO THE TABLE AS ROWS.
+            for (var i = 0; i < json.length; i++) {
+
+                tr = table.insertRow(-1);
+
+                for (var j = 0; j < col.length; j++) {
+                    var tabCell = tr.insertCell(-1);
+                    tabCell.innerHTML = json[i][col[j]];
+                    // 增加事件
+                    tabCell.addEventListener('click', function(){
+                        console.log(this);
+                        window.open("http://localhost:8080/toTableIndex")
+                    });
+                }
+            }
+
+            // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
+            var divContainer = document.getElementById("dbResultList");
+            divContainer.innerHTML = "";
+            divContainer.appendChild(table);
+        }
+
+        function genDBResultList(){
+
+            $.ajax({
+               url: "http://localhost:8080/db/query",
+               type: "get",
+               data: {
+                   "schema" : $("#schema").val(),
+                   "tableName" :$("#tableName").val()
+               },
+               dataType: "json",
+               success: function (result) {
+                   var json = eval(result);
+                   // for(str in json){
+                   //     console.log('str = ' + json[str].tableName +', value = ' + json[str].tableComment)
+                   //     $("#dbResultList").html('str = ' + json[str].tableName +', value = ' + json[str].tableComment);
+                   // }
+                   CreateTableFromJSON(json)
+
+                   console.log(result);
+               }
+            });
+            console.log('123')
+        }
+
+    </script>
 </head>
 <body>
 
 <div class="container">
     <form class="form-inline" action="/db/query">
-        <label for="text" class="mb-2 mr-sm-2">库名:</label>
-        <input type="text" class="form-control mb-2 mr-sm-2" id="schema" placeholder="库名" name="schema">
+        <label for="text" class="mb-2 mr-sm-2" >库名:</label>
+        <input type="text" class="form-control mb-2 mr-sm-2" id="schema" placeholder="库名" name="schema"
+               onblur="genDBResultList()">
 
         <label for="text" class="mb-2 mr-sm-2">表名:</label>
-        <input type="text" class="form-control mb-2 mr-sm-2" id="tableName" placeholder="表名" name="tableName">
+        <input type="text" class="form-control mb-2 mr-sm-2" id="tableName" placeholder="表名" name="tableName"
+               onblur="genDBResultList()">
 
         <button type="submit" class="btn btn-primary mb-2">提交</button>
     </form>
+
+    <div id="dbResultList"></div>
 </div>
 </body>
 </html>
