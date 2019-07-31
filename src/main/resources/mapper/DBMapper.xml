@@ -3,12 +3,12 @@
 <mapper namespace="com.example.bddes.dao.DBDao">
 
     <select id="query" resultType="java.util.HashMap" parameterType="hashmap">
-        SELECT c.TABLE_NAME, c.table_comment
+        SELECT c.TABLE_NAME as tableName, c.table_comment as tableComment
         FROM information_schema.`TABLES` AS c
         WHERE c.TABLE_SCHEMA = #{schema}
 
         <if test="tableName != '' and tableName != null  ">
-            and TABLE_NAME=#{tableName}
+            and TABLE_NAME like concat('%',#{tableName},'%')
         </if>
 
         ORDER BY create_time desc

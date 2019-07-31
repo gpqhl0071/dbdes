@@ -14,6 +14,7 @@ import java.util.Map;
  * @date 2019/7/30 17:31
  */
 @Service
+@SuppressWarnings("all")
 public class DBServiceImpl implements DBService {
   @Autowired
   private DBDao dbDao;

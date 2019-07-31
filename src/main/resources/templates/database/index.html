@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <form class="form-inline" action="/db/query">
+        <label for="text" class="mb-2 mr-sm-2">库名:</label>
+        <input type="text" class="form-control mb-2 mr-sm-2" id="schema" placeholder="库名" name="schema">
+
+        <label for="text" class="mb-2 mr-sm-2">表名:</label>
+        <input type="text" class="form-control mb-2 mr-sm-2" id="tableName" placeholder="表名" name="tableName">
+
+        <button type="submit" class="btn btn-primary mb-2">提交</button>
+    </form>
+</div>
+</body>
+</html>

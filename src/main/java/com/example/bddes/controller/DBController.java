@@ -3,36 +3,38 @@ package com.example.bddes.controller;
 import com.example.bddes.service.DBService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author gao peng
  * @date 2019/7/30 17:36
  */
-@RestController
+@Controller
 public class DBController {
   @Autowired
   private DBService dbService;
 
-  @RequestMapping(value = "/query/{schema}/{tableName}", method = RequestMethod.GET)
-  @ResponseBody
-  public String query(@PathVariable("schema") String schema, @PathVariable("tableName") String tableName) {
+  @RequestMapping(value = "/db/query", method = RequestMethod.GET)
+  public String toDBIndex(Model model, HttpServletResponse response,
+      HttpServletRequest request) throws Exception {
 
-    dbService.query(schema, tableName);
+    String schema = request.getParameter("schema");
+    String tableName = request.getParameter("tableName");
 
-    return "ok";
-  }
+    List<Map<String, Object>> resultList = dbService.query(schema, tableName);
 
-  @RequestMapping(value = "/query/{schema}", method = RequestMethod.GET)
-  @ResponseBody
-  public String query(@PathVariable("schema") String schema) {
+    model.addAttribute("list", resultList);
 
-    dbService.query(schema, null);
-    return "ok";
+    return "database/dbMain";
   }
 
 }
