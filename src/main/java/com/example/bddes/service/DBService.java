@@ -8,5 +8,7 @@ import java.util.Map;
  * @date 2019/7/30 17:30
  */
 public interface DBService {
-  public List<Map<String, Object>> query(String schema, String tabelName);
+  public List<Map<String, Object>> query(String schema, String tabelName, String tableComment);
+
+  public List<Map<String, Object>> queryTabel(String tabelName, String columnComment);
 }

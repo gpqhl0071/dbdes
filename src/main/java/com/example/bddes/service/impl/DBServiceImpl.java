@@ -20,9 +20,16 @@ public class DBServiceImpl implements DBService {
   private DBDao dbDao;
 
   @Override
-  public List<Map<String, Object>> query(String schema, String tabelName) {
-    List list = dbDao.query(schema, tabelName);
+  public List<Map<String, Object>> query(String schema, String tabelName, String tableComment) {
+    List list = dbDao.query(schema, tabelName, tableComment);
     System.out.println(list.size());
+    return list;
+  }
+
+  @Override
+  public List<Map<String, Object>> queryTabel(String tabelName, String columnComment) {
+    List list = dbDao.queryTable(tabelName, columnComment);
+
     return list;
   }
 }

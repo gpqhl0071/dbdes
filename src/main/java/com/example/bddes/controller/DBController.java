@@ -33,12 +33,25 @@ public class DBController {
 
     String schema = request.getParameter("schema");
     String tableName = request.getParameter("tableName");
+    String tableComment = request.getParameter("tableComment");
 
-    List<Map<String, Object>> resultList = dbService.query(schema, tableName);
+    List<Map<String, Object>> resultList = dbService.query(schema, tableName, tableComment);
 
 //    model.addAttribute("list", resultList);
 
 //    return "database/dbMain";
+    return JSONUtil.toJsonStr(resultList);
+  }
+
+  @RequestMapping(value = "/db/queryTable", method = RequestMethod.GET)
+  @ResponseBody
+  public String queryTable(HttpServletRequest request, HttpServletResponse response) {
+
+
+    String tableName = request.getParameter("tableName");
+    String columnComment = request.getParameter("columnComment");
+    List<Map<String, Object>> resultList = dbService.queryTabel(tableName, columnComment);
+
     return JSONUtil.toJsonStr(resultList);
   }
 

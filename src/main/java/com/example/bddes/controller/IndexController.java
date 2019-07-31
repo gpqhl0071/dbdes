@@ -3,6 +3,10 @@ package com.example.bddes.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author gao peng
@@ -18,9 +22,13 @@ public class IndexController {
   }
 
   @RequestMapping(value = "/toTableIndex", method = RequestMethod.GET)
-  public String toTableIndex(){
+  public ModelAndView toTableIndex(HttpServletRequest request, HttpServletResponse response, ModelAndView mv){
+    String tableName = request.getParameter("tableName");
 
-    return "database/toTableIndex";
+    mv.addObject("tableName", tableName);
+    mv.setViewName("/database/toTableIndex");
+
+    return mv;
   }
 
 }

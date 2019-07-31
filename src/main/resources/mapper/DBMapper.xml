@@ -10,8 +10,26 @@
         <if test="tableName != '' and tableName != null  ">
             and TABLE_NAME like concat('%',#{tableName},'%')
         </if>
+        <if test="tableComment != '' and tableComment != null  ">
+            and table_comment like concat('%',#{tableComment},'%')
+        </if>
 
         ORDER BY create_time desc
+
+    </select>
+
+
+    <select id="queryTable" resultType="java.util.HashMap" parameterType="hashmap">
+        SELECT c.COLUMN_NAME, c.COLUMN_COMMENT,c.DATA_TYPE
+        FROM information_schema.`COLUMNS` AS c
+        WHERE 1=1
+
+        <if test="tableName != '' and tableName != null  ">
+            and c.TABLE_NAME LIKE concat('%',#{tableName},'%')
+        </if>
+        <if test="columnComment != '' and columnComment != null  ">
+            and c.COLUMN_COMMENT like concat('%',#{columnComment},'%')
+        </if>
 
     </select>
 

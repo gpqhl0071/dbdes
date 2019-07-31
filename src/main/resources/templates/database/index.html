@@ -47,9 +47,11 @@
                     tabCell.innerHTML = json[i][col[j]];
                     // 增加事件
                     tabCell.addEventListener('click', function(){
-                        console.log(this);
-                        window.open("http://localhost:8080/toTableIndex")
-                    });
+                        console.log($(this).text());
+                        if(confirm("确定查看表详情吗？")){
+                          window.open("http://localhost:8080/toTableIndex?tableName="+$(this).text());
+                        }
+                    }, false);
                 }
             }
 
@@ -66,7 +68,8 @@
                type: "get",
                data: {
                    "schema" : $("#schema").val(),
-                   "tableName" :$("#tableName").val()
+                   "tableName" :$("#tableName").val(),
+                   "tableComment" :$("#tableComment").val()
                },
                dataType: "json",
                success: function (result) {
@@ -91,13 +94,17 @@
     <form class="form-inline" action="/db/query">
         <label for="text" class="mb-2 mr-sm-2" >库名:</label>
         <input type="text" class="form-control mb-2 mr-sm-2" id="schema" placeholder="库名" name="schema"
+               value = "gp01"
                onblur="genDBResultList()">
 
         <label for="text" class="mb-2 mr-sm-2">表名:</label>
         <input type="text" class="form-control mb-2 mr-sm-2" id="tableName" placeholder="表名" name="tableName"
                onblur="genDBResultList()">
 
-        <button type="submit" class="btn btn-primary mb-2">提交</button>
+
+        <label for="text" class="mb-2 mr-sm-2">表备注:</label>
+        <input type="text" class="form-control mb-2 mr-sm-2" id="tableComment" placeholder="表备注" name="tableComment"
+               onblur="genDBResultList()">
     </form>
 
     <div id="dbResultList"></div>

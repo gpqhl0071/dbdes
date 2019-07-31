@@ -1,7 +1,6 @@
 package com.example.bddes.dao;
 
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
@@ -12,5 +11,12 @@ import java.util.Map;
  */
 public interface DBDao {
 
-  public List<Map<String, Object>> query(@Param("schema") String schema, @Param("tableName") String tableName);
+  public List<Map<String, Object>> query(@Param("schema") String schema,
+      @Param("tableName") String tableName,
+      @Param("tableComment") String tableComment);
+
+
+  public List<Map<String, Object>> queryTable(
+      @Param("tableName") String tableName,
+      @Param("columnComment") String columnComment);
 }
