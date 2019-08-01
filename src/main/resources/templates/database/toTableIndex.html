@@ -8,10 +8,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/common/common.js"></script>
 
     <script>
 
-        setTimeout('genDBResultList()',100);
+        setTimeout('genDBResultList()', 100);
 
         function CreateTableFromJSON(json) {
 
@@ -57,16 +58,16 @@
             divContainer.appendChild(table);
         }
 
-        function genDBResultList(){
+        function genDBResultList() {
 
             $.ajax({
-                       url: "http://localhost:8080/db/queryTable",
+                       url: getRealPath() + "/db/queryTable",
                        type: "get",
                        data: {
-                           "schema" :$("#schema").val(),
-                           "tableName" :$("#tableName").val(),
-                           "columnComment" :$("#columnComment").val(),
-                           "columnName" :$("#columnName").val()
+                           "schema": $("#schema").val(),
+                           "tableName": $("#tableName").val(),
+                           "columnComment": $("#columnComment").val(),
+                           "columnName": $("#columnName").val()
                        },
                        dataType: "json",
                        success: function (result) {
@@ -95,7 +96,7 @@
 
         <label for="text" class="mb-2 mr-sm-2">字段名:</label>
         <input type="text" class="form-control mb-2 mr-sm-2" id="columnName" placeholder="字段名" name="columnName"
-               onblur="genDBResultList()" >
+               onblur="genDBResultList()">
 
 
         <label for="text" class="mb-2 mr-sm-2">字段备注:</label>
