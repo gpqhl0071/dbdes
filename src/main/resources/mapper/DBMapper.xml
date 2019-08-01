@@ -20,7 +20,7 @@
 
 
     <select id="queryTable" resultType="java.util.HashMap" parameterType="hashmap">
-        SELECT c.COLUMN_NAME, c.COLUMN_COMMENT,c.DATA_TYPE
+        SELECT c.TABLE_NAME, c.COLUMN_NAME, c.COLUMN_COMMENT,c.DATA_TYPE
         FROM information_schema.`COLUMNS` AS c
         WHERE 1=1
 
