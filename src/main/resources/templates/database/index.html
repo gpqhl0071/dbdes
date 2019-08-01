@@ -14,10 +14,10 @@
     <script>
 
         function clickDetail(evt) {
-            if (confirm("确定查看表" + evt.currentTarget.myParam + "详情吗？")) {
-                window.open(
-                    "http://localhost:8080/toTableIndex?tableName=" + evt.currentTarget.myParam + "&schema=" + $("#schema").val());
-            }
+            // if (confirm("确定查看表" + evt.currentTarget.myParam + "详情吗？")) {
+            window.open(
+                getRealPath() + "/toTableIndex?tableName=" + evt.currentTarget.myParam + "&schema=" + $("#schema").val());
+            // }
         }
 
         function CreateTableFromJSON(json) {

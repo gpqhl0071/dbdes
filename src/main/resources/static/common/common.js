@@ -27,5 +27,5 @@ function getRealPath() {
 }
 
 function markRed(old, newStr){
-    return old.replace(newStr, "<font color=red>"+newStr+"</font>");
+    return old.replace(newStr, "<font color=red><b>"+newStr+"</b></font>");
 }
