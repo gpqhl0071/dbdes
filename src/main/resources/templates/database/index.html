@@ -49,7 +49,7 @@
                     tabCell.addEventListener('click', function(){
                         console.log($(this).text());
                         if(confirm("确定查看表详情吗？")){
-                          window.open("http://localhost:8080/toTableIndex?tableName="+$(this).text());
+                          window.open("http://localhost:8080/toTableIndex?tableName="+$(this).text()+"&schema="+$("#schema").val());
                         }
                     }, false);
                 }

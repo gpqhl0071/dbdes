@@ -24,8 +24,10 @@ public class IndexController {
   @RequestMapping(value = "/toTableIndex", method = RequestMethod.GET)
   public ModelAndView toTableIndex(HttpServletRequest request, HttpServletResponse response, ModelAndView mv){
     String tableName = request.getParameter("tableName");
+    String schema = request.getParameter("schema");
 
     mv.addObject("tableName", tableName);
+    mv.addObject("schema", schema);
     mv.setViewName("/database/toTableIndex");
 
     return mv;

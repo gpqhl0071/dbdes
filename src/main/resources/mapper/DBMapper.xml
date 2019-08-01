@@ -22,10 +22,13 @@
     <select id="queryTable" resultType="java.util.HashMap" parameterType="hashmap">
         SELECT c.TABLE_NAME, c.COLUMN_NAME, c.COLUMN_COMMENT,c.DATA_TYPE
         FROM information_schema.`COLUMNS` AS c
-        WHERE 1=1
+        WHERE c.TABLE_SCHEMA = #{schema}
 
         <if test="tableName != '' and tableName != null  ">
             and c.TABLE_NAME LIKE concat('%',#{tableName},'%')
+        </if>
+        <if test="columnName != '' and columnName != null  ">
+            and c.COLUMN_NAME LIKE concat('%',#{columnName},'%')
         </if>
         <if test="columnComment != '' and columnComment != null  ">
             and c.COLUMN_COMMENT like concat('%',#{columnComment},'%')

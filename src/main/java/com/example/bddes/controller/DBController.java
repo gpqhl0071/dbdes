@@ -47,10 +47,11 @@ public class DBController {
   @ResponseBody
   public String queryTable(HttpServletRequest request, HttpServletResponse response) {
 
-
+    String schema = request.getParameter("schema");
     String tableName = request.getParameter("tableName");
     String columnComment = request.getParameter("columnComment");
-    List<Map<String, Object>> resultList = dbService.queryTabel(tableName, columnComment);
+    String columnName = request.getParameter("columnName");
+    List<Map<String, Object>> resultList = dbService.queryTabel(schema, tableName, columnComment, columnName);
 
     return JSONUtil.toJsonStr(resultList);
   }

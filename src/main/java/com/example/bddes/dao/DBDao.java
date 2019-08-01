@@ -17,6 +17,8 @@ public interface DBDao {
 
 
   public List<Map<String, Object>> queryTable(
+      @Param("schema") String schema,
       @Param("tableName") String tableName,
-      @Param("columnComment") String columnComment);
+      @Param("columnComment") String columnComment,
+      @Param("columnName") String columnName);
 }

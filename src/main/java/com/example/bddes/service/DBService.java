@@ -10,5 +10,5 @@ import java.util.Map;
 public interface DBService {
   public List<Map<String, Object>> query(String schema, String tabelName, String tableComment);
 
-  public List<Map<String, Object>> queryTabel(String tabelName, String columnComment);
+  public List<Map<String, Object>> queryTabel(String schema, String tabelName, String columnComment, String columnName);
 }

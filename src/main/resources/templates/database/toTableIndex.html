@@ -62,8 +62,10 @@
                        url: "http://localhost:8080/db/queryTable",
                        type: "get",
                        data: {
+                           "schema" :$("#schema").val(),
                            "tableName" :$("#tableName").val(),
-                           "columnComment" :$("#columnComment").val()
+                           "columnComment" :$("#columnComment").val(),
+                           "columnName" :$("#columnName").val()
                        },
                        dataType: "json",
                        success: function (result) {
@@ -82,9 +84,17 @@
 
 <div class="container">
     <form class="form-inline" action="">
+
+        <input type="hidden" id="schema" name="schema" th:value="${schema}">
+
         <label for="text" class="mb-2 mr-sm-2">表名:</label>
         <input type="text" class="form-control mb-2 mr-sm-2" id="tableName" placeholder="表名" name="tableName"
                onblur="genDBResultList()" th:value="${tableName}">
+
+
+        <label for="text" class="mb-2 mr-sm-2">字段名:</label>
+        <input type="text" class="form-control mb-2 mr-sm-2" id="columnName" placeholder="字段名" name="columnName"
+               onblur="genDBResultList()" >
 
 
         <label for="text" class="mb-2 mr-sm-2">字段备注:</label>
