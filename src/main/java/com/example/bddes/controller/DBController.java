@@ -4,6 +4,7 @@ import cn.hutool.json.JSONUtil;
 
 import com.example.bddes.service.DBService;
 import com.example.bddes.service.GeneratorBeanService;
+import com.example.bddes.service.QUIDService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,8 @@ public class DBController {
   private DBService dbService;
   @Autowired
   private GeneratorBeanService generatorBeanService;
+  @Autowired
+  private QUIDService quidService;
 
   @RequestMapping(value = "/db/query", method = RequestMethod.GET)
   @ResponseBody
@@ -78,6 +81,26 @@ public class DBController {
 
     Map<String, String> resultMap = new HashMap<String, String>();
     resultMap.put("data", result);
+
+    return JSONUtil.toJsonPrettyStr(resultMap);
+  }
+
+  @RequestMapping(value = "/db/genJDBCTemplate", method = RequestMethod.GET)
+  @ResponseBody
+  public String generatorJDBCTemplate(HttpServletRequest request, HttpServletResponse response) {
+
+    String schema = request.getParameter("schema");
+    String tableName = request.getParameter("tableName");
+
+    StringBuffer sb = new StringBuffer();
+    sb.append(generatorBeanService.generatorJDBCMapper(schema, tableName));
+    sb.append(quidService.generatorBatchInsert(schema, tableName));
+    sb.append(quidService.generatorInsert(schema, tableName));
+    sb.append(quidService.generatorQueryById(schema, tableName));
+    sb.append(quidService.generatorQueryPage(schema, tableName));
+
+    Map<String, String> resultMap = new HashMap<String, String>();
+    resultMap.put("data", sb.toString());
 
     return JSONUtil.toJsonPrettyStr(resultMap);
   }

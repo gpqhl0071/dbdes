@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class IndexController {
 
-  @RequestMapping(value = "/toDBIndex", method = RequestMethod.GET)
+  @RequestMapping(value = "/", method = RequestMethod.GET)
   public String toDBIndex(){
 
     return "database/index";

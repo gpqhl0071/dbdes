@@ -20,7 +20,6 @@
             // }
         }
 
-
         function genBean(evt) {
             $.ajax({
                url: getRealPath() + "/db/genBean",
@@ -36,6 +35,24 @@
                    document.getElementById("beanCode").innerHTML = json.data;
                }
            });
+
+        }
+
+        function genJDBCTemplate(evt) {
+            $.ajax({
+                       url: getRealPath() + "/db/genJDBCTemplate",
+                       type: "get",
+                       data: {
+                           "tableName" :evt.currentTarget.myParam,
+                           "schema" :$("#schema").val()
+                       },
+                       dataType: "json",
+                       success: function (result) {
+                           var json = eval(result);
+
+                           document.getElementById("jdbcTemplate").innerHTML = json.data;
+                       }
+                   });
 
         }
 
@@ -67,7 +84,7 @@
             }
 
             var th = document.createElement("th"); // TABLE HEADER.
-            th.colSpan = 2;
+            th.colSpan = 3;
             th.innerHTML = '操作';
             tr.appendChild(th);
 
@@ -95,6 +112,12 @@
                         tabCell.innerHTML =
                             "<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModal\" >生成BEAN</button>";
                         tabCell.addEventListener('click', genBean, false);
+                        tabCell.myParam = tName;
+
+                        var tabCell = tr.insertCell(-1);
+                        tabCell.innerHTML =
+                            "<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModal_1\" >生成JDBC模板</button>";
+                        tabCell.addEventListener('click', genJDBCTemplate, false);
                         tabCell.myParam = tName;
                     }
                 }
@@ -161,13 +184,38 @@
 
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h4 class="modal-title">bean code</h4>
+                    <h4 class="modal-title">generator bean code</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
                 <!-- Modal body -->
                 <div class="modal-body">
                     <div id="beanCode"></div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- The Modal -->
+    <div class="modal fade" id="myModal_1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">generator jdbc template</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div id="jdbcTemplate"></div>
                 </div>
 
                 <!-- Modal footer -->

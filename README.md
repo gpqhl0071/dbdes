@@ -6,6 +6,10 @@ database description
 
 只需要通过关键字，即可查询相关表，及相关字段。  
 
+增加根据表，生成java模板代码bean dao 等  
+
+
+
 
 ## 技术栈
 - jdk1.8

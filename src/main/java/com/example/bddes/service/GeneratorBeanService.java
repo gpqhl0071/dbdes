@@ -7,4 +7,6 @@ package com.example.bddes.service;
 public interface GeneratorBeanService {
 
   public String handle(String schema, String tableName);
+
+  public String generatorJDBCMapper(String schema, String tableName);
 }
