@@ -110,13 +110,13 @@
 
                         var tabCell = tr.insertCell(-1);
                         tabCell.innerHTML =
-                            "<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModal\" >生成BEAN</button>";
+                            "<button type=\"button\" class=\"btn btn-success\" data-toggle=\"modal\" data-target=\"#myModal\" >生成BEAN</button>";
                         tabCell.addEventListener('click', genBean, false);
                         tabCell.myParam = tName;
 
                         var tabCell = tr.insertCell(-1);
                         tabCell.innerHTML =
-                            "<button type=\"button\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#myModal_1\" >生成JDBC模板</button>";
+                            "<button type=\"button\" class=\"btn btn-success\" data-toggle=\"modal\" data-target=\"#myModal_1\" >生成JDBC模板</button>";
                         tabCell.addEventListener('click', genJDBCTemplate, false);
                         tabCell.myParam = tName;
                     }
