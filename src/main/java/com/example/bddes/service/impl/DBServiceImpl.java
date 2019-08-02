@@ -49,7 +49,7 @@ public class DBServiceImpl implements DBService {
   @Override
   public List<Map<String, Object>> queryTabel(String schema, String tabelName, String columnComment,
       String columnName) {
-    String key = "table_" + schema + "_" + tabelName;
+    String key = "table_" + schema + "_" + tabelName + "_" + columnName;
     List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 
     try {

@@ -18,6 +18,8 @@ database description
 - bootstrap
 - themeleaf
 - mysql数据库
+- Redis
+
 
 ## 项目运行结果图
 
