@@ -13,4 +13,8 @@ public interface QUIDService {
   public String generatorQueryById(String schema, String tableName);
 
   public String generatorQueryPage(String schema, String tableName);
+
+  public String generatorQueryByCondition(String schema, String tableName);
+
+  public String generatorUpdate(String schema, String tableName);
 }

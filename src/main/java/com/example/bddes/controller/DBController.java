@@ -1,5 +1,6 @@
 package com.example.bddes.controller;
 
+import cn.hutool.core.util.EscapeUtil;
 import cn.hutool.json.JSONUtil;
 
 import com.example.bddes.service.DBService;
@@ -99,6 +100,8 @@ public class DBController {
     sb.append(quidService.generatorInsert(schema, tableName));
     sb.append(quidService.generatorQueryById(schema, tableName));
     sb.append(quidService.generatorQueryPage(schema, tableName));
+    sb.append(quidService.generatorQueryByCondition(schema, tableName));
+    sb.append(quidService.generatorUpdate(schema, tableName));
 
     Map<String, String> resultMap = new HashMap<String, String>();
     resultMap.put("data", sb.toString());

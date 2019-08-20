@@ -1,5 +1,6 @@
 package com.example.bddes.service.impl;
 
+import cn.hutool.core.util.EscapeUtil;
 import cn.hutool.core.util.StrUtil;
 
 import com.example.bddes.config.CommonConfig;
@@ -57,7 +58,6 @@ public class GeneratorBeanServiceImpl implements GeneratorBeanService {
 
   /**
    * 生成JDBCTemplate mapper方法
-   *
    * @return void
    * @param: [tableName]
    * @author gao peng
@@ -72,7 +72,9 @@ public class GeneratorBeanServiceImpl implements GeneratorBeanService {
     String mapperName = MySqlToJavaUtil.tranMySQLTableToJavaBean(tableName);
 
     StringUtil.splace(mapSB, commonConfig.getSpaceInitNum());
-    mapSB.append("private class " + mapperName + "RowMapper implements RowMapper<" + mapperName + "Bean> {");
+    mapSB.append(EscapeUtil.escapeHtml4("private class " + mapperName + "RowMapper implements RowMapper<" + mapperName + "Bean> {"));
+
+
     StringUtil.enter(mapSB);
 
     StringUtil.splace(mapSB, commonConfig.getSpaceInitNum());
