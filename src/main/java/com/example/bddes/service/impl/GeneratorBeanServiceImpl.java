@@ -45,6 +45,8 @@ public class GeneratorBeanServiceImpl implements GeneratorBeanService {
         type = "int";
       } else if (type.equals("Timestamp")) {
         type = "Date";
+      } else if (type.equals("Long")) {
+        type = "long";
       }
 
       sb.append("/**</br>");
