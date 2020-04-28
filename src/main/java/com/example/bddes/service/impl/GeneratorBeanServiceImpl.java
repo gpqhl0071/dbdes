@@ -10,13 +10,16 @@ import com.example.bddes.util.MySqlToJavaUtil;
 import com.example.bddes.util.StringUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import java.sql.Struct;
 import java.util.List;
 import java.util.Map;
 
 /**
  * 数据库中字段，映射成java BEAN
+ *
  * @author gao peng
  * @date 2018/9/30 11:00
  */
@@ -58,8 +61,50 @@ public class GeneratorBeanServiceImpl implements GeneratorBeanService {
     return sb.toString();
   }
 
+  public String genImport() {
+    StringBuffer importBuffer = new StringBuffer();
+
+    importBuffer.append("package com.redhorse.dao;").append("</br>");
+
+    importBuffer.append("import cn.hutool.core.util.StrUtil;").append("</br>");
+    importBuffer.append("import com.redhorse.bean.Page;").append("</br>");
+    importBuffer.append("import com.redhorse.bean.UserFundActivityBean;").append("</br>");
+    importBuffer.append("import org.springframework.jdbc.core.BatchPreparedStatementSetter;").append("</br>");
+    importBuffer.append("import org.springframework.jdbc.core.PreparedStatementCreator;").append("</br>");
+    importBuffer.append("import org.springframework.jdbc.core.RowMapper;").append("</br>");
+    importBuffer.append("import org.springframework.jdbc.support.GeneratedKeyHolder;").append("</br>");
+    importBuffer.append("import org.springframework.jdbc.support.KeyHolder;").append("</br>");
+    importBuffer.append("import org.springframework.stereotype.Repository;").append("</br>");
+    importBuffer.append("import java.sql.PreparedStatement;").append("</br>");
+    importBuffer.append("import java.sql.ResultSet;").append("</br>");
+    importBuffer.append("import java.sql.SQLException;").append("</br>");
+    importBuffer.append("import java.sql.Statement;").append("</br>");
+    importBuffer.append("import java.sql.Timestamp;").append("</br>");
+    importBuffer.append("import java.util.ArrayList;").append("</br>");
+    importBuffer.append("import java.util.List;").append("</br>");
+
+    return importBuffer.toString();
+  }
+
+  public String genClassName(String schema) {
+    StringBuffer sb = new StringBuffer();
+    sb.append("@Repository");
+    StringUtil.enter(sb);
+    sb.append("public class " + schema + "Dao extends BaseDao {");
+
+    return sb.toString();
+  }
+
+  public String genEnd() {
+    StringBuffer sb = new StringBuffer();
+    sb.append("}");
+
+    return sb.toString();
+  }
+
   /**
    * 生成JDBCTemplate mapper方法
+   *
    * @return void
    * @param: [tableName]
    * @author gao peng

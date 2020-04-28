@@ -95,6 +95,8 @@ public class DBController {
     String tableName = request.getParameter("tableName");
 
     StringBuffer sb = new StringBuffer();
+    sb.append(generatorBeanService.genImport());
+    sb.append(generatorBeanService.genClassName(schema));
     sb.append(generatorBeanService.generatorJDBCMapper(schema, tableName));
     sb.append(quidService.generatorBatchInsert(schema, tableName));
     sb.append(quidService.generatorInsert(schema, tableName));
@@ -102,6 +104,7 @@ public class DBController {
     sb.append(quidService.generatorQueryPage(schema, tableName));
     sb.append(quidService.generatorQueryByCondition(schema, tableName));
     sb.append(quidService.generatorUpdate(schema, tableName));
+    sb.append(generatorBeanService.genEnd());
 
     Map<String, String> resultMap = new HashMap<String, String>();
     resultMap.put("data", sb.toString());
