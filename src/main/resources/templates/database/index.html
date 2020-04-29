@@ -235,9 +235,7 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" onclick="javascript:selectAll()">全选</button>
                     <button class="btn">Copy</button>
-
                 </div>
 
             </div>
@@ -258,6 +256,7 @@
     });
 
     clipboard.on('success', function(e) {
+        alert('copy success!')
         console.log(e);
     });
 
