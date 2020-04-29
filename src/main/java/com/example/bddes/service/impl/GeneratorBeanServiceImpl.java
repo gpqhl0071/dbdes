@@ -61,14 +61,15 @@ public class GeneratorBeanServiceImpl implements GeneratorBeanService {
     return sb.toString();
   }
 
-  public String genImport() {
+  public String genImport(String tableName) {
+    String mapperName = MySqlToJavaUtil.tranMySQLTableToJavaBean(tableName);
     StringBuffer importBuffer = new StringBuffer();
 
     importBuffer.append("package com.redhorse.dao;").append("</br>");
 
     importBuffer.append("import cn.hutool.core.util.StrUtil;").append("</br>");
     importBuffer.append("import com.redhorse.bean.Page;").append("</br>");
-    importBuffer.append("import com.redhorse.bean.UserFundActivityBean;").append("</br>");
+    importBuffer.append("import com.redhorse.bean." + mapperName + "Bean;").append("</br>");
     importBuffer.append("import org.springframework.jdbc.core.BatchPreparedStatementSetter;").append("</br>");
     importBuffer.append("import org.springframework.jdbc.core.PreparedStatementCreator;").append("</br>");
     importBuffer.append("import org.springframework.jdbc.core.RowMapper;").append("</br>");
@@ -86,11 +87,12 @@ public class GeneratorBeanServiceImpl implements GeneratorBeanService {
     return importBuffer.toString();
   }
 
-  public String genClassName(String schema) {
+  public String genClassName(String tableName) {
+    String mapperName = MySqlToJavaUtil.tranMySQLTableToJavaBean(tableName);
     StringBuffer sb = new StringBuffer();
     sb.append("@Repository");
     StringUtil.enter(sb);
-    sb.append("public class " + schema + "Dao extends BaseDao {");
+    sb.append("public class " + mapperName + "Dao extends BaseDao {");
 
     return sb.toString();
   }

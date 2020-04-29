@@ -10,9 +10,9 @@ public interface GeneratorBeanService {
 
   public String generatorJDBCMapper(String schema, String tableName);
 
-  public String genImport();
+  public String genImport(String tableName);
 
-  public String genClassName(String schema);
+  public String genClassName(String tableName);
 
   public String genEnd();
 }

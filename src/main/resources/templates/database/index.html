@@ -9,9 +9,11 @@
     <script src="/common/popper.min.js"></script>
     <script src="/common/bootstrap.min.js"></script>
     <script type="text/javascript" src="/common/common.js"></script>
-
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
 
     <script>
+
+        var jdbctext='';
 
         function clickDetail(evt) {
             // if (confirm("确定查看表" + evt.currentTarget.myParam + "详情吗？")) {
@@ -22,19 +24,19 @@
 
         function genBean(evt) {
             $.ajax({
-               url: getRealPath() + "/db/genBean",
-               type: "get",
-               data: {
-                   "tableName" :evt.currentTarget.myParam,
-                   "schema" :$("#schema").val()
-               },
-               dataType: "json",
-               success: function (result) {
-                   var json = eval(result);
+                       url: getRealPath() + "/db/genBean",
+                       type: "get",
+                       data: {
+                           "tableName": evt.currentTarget.myParam,
+                           "schema": $("#schema").val()
+                       },
+                       dataType: "json",
+                       success: function (result) {
+                           var json = eval(result);
 
-                   document.getElementById("beanCode").innerHTML = json.data;
-               }
-           });
+                           document.getElementById("beanCode").innerHTML = json.data;
+                       }
+                   });
 
         }
 
@@ -43,14 +45,27 @@
                        url: getRealPath() + "/db/genJDBCTemplate",
                        type: "get",
                        data: {
-                           "tableName" :evt.currentTarget.myParam,
-                           "schema" :$("#schema").val()
+                           "tableName": evt.currentTarget.myParam,
+                           "schema": $("#schema").val()
                        },
                        dataType: "json",
                        success: function (result) {
                            var json = eval(result);
 
-                           document.getElementById("jdbcTemplate").innerHTML = json.data;
+                           // document.getElementById("jdbcTemplate").innerHTML = json.data;
+                           $("#jdbcTemplate").html(json.data)
+
+                           var reg = new RegExp("<br>", "g");//g,表示全部替换。
+                           var a = $("#jdbcTemplate").html().replace(reg, "\n");
+
+                           var reg1 = new RegExp("</object>", "g");//g,表示全部替换。
+                           var b = a.replace(reg1, "");
+                           var reg2 = new RegExp("&lt;", "g");//g,表示全部替换。
+                           var c = b.replace(reg2, "<");
+                           var reg3 = new RegExp("&gt;", "g");//g,表示全部替换。
+                           var d = c.replace(reg3, ">");
+
+                           jdbctext = d;
                        }
                    });
 
@@ -129,29 +144,29 @@
             divContainer.appendChild(table);
         }
 
-        function genDBResultList(){
+        function genDBResultList() {
             console.log(getRealPath());
 
             $.ajax({
-               url: getRealPath() + "/db/query",
-               type: "get",
-               data: {
-                   "schema" : $("#schema").val(),
-                   "tableName" :$("#tableName").val(),
-                   "tableComment" :$("#tableComment").val()
-               },
-               dataType: "json",
-               success: function (result) {
-                   var json = eval(result);
-                   // for(str in json){
-                   //     console.log('str = ' + json[str].tableName +', value = ' + json[str].tableComment)
-                   //     $("#dbResultList").html('str = ' + json[str].tableName +', value = ' + json[str].tableComment);
-                   // }
-                   CreateTableFromJSON(json)
+                       url: getRealPath() + "/db/query",
+                       type: "get",
+                       data: {
+                           "schema": $("#schema").val(),
+                           "tableName": $("#tableName").val(),
+                           "tableComment": $("#tableComment").val()
+                       },
+                       dataType: "json",
+                       success: function (result) {
+                           var json = eval(result);
+                           // for(str in json){
+                           //     console.log('str = ' + json[str].tableName +', value = ' + json[str].tableComment)
+                           //     $("#dbResultList").html('str = ' + json[str].tableName +', value = ' + json[str].tableComment);
+                           // }
+                           CreateTableFromJSON(json)
 
-                   console.log(result);
-               }
-            });
+                           console.log(result);
+                       }
+                   });
         }
 
     </script>
@@ -160,9 +175,9 @@
 
 <div class="container">
     <form class="form-inline" action="/db/query">
-        <label for="text" class="mb-2 mr-sm-2" >库名:</label>
+        <label for="text" class="mb-2 mr-sm-2">库名:</label>
         <input type="text" class="form-control mb-2 mr-sm-2" id="schema" placeholder="库名" name="schema"
-               value = "dx20_gongshe"
+               value="dx20_gongshe"
                onblur="genDBResultList()">
 
         <label for="text" class="mb-2 mr-sm-2">表名:</label>
@@ -220,12 +235,35 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="javascript:selectAll()">全选</button>
+                    <button class="btn">Copy</button>
+
                 </div>
 
             </div>
         </div>
     </div>
 </div>
+
+<!-- 2. Include library -->
+<script type="text/javascript" src="/common/clipboard.js"></script>
+
+<!-- 3. Instantiate clipboard by passing a HTML element -->
+<script>
+    var clipboard = new ClipboardJS('.btn', {
+        text: function() {
+            console.log(jdbctext);
+            return jdbctext;
+        }
+    });
+
+    clipboard.on('success', function(e) {
+        console.log(e);
+    });
+
+    clipboard.on('error', function(e) {
+        console.log(e);
+    });
+</script>
 </body>
 </html>
