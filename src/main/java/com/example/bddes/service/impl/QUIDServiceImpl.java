@@ -234,7 +234,7 @@ public class QUIDServiceImpl implements QUIDService {
 
       StringUtil.splace(sb, commonConfig.getSpaceInitNum() + 2);
       if (fieldType.equals("Long") || fieldType.equals("Int") || fieldType.equals("Double")) {
-        StringUtil.writeLine(sb, "if (bean.get" + fieldName + "() != 0) {");
+        StringUtil.writeLine(sb, "if (bean.get" + fieldName + "() != null) {");
       } else if (fieldType.equals("Timestamp")) {
         StringUtil.writeLine(sb, "if (bean.get" + fieldName + "() != null) {");
       } else {
@@ -296,7 +296,7 @@ public class QUIDServiceImpl implements QUIDService {
 
       StringUtil.splace(sb, commonConfig.getSpaceInitNum() + 2);
       if (fieldType.equals("Long") || fieldType.equals("Int") || fieldType.equals("Double")) {
-        StringUtil.writeLine(sb, "if (bean.get" + fieldName + "() != 0) {");
+        StringUtil.writeLine(sb, "if (bean.get" + fieldName + "() != null) {");
       } else if (fieldType.equals("Timestamp")) {
         StringUtil.writeLine(sb, "if (bean.get" + fieldName + "() != null) {");
       } else {

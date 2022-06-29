@@ -45,11 +45,11 @@ public class GeneratorBeanServiceImpl implements GeneratorBeanService {
       String type = MySqlToJavaUtil.tranMysqlTOJavaType(dataType);
 
       if (type.equals("Int")) {
-        type = "int";
+        type = "Integer";
       } else if (type.equals("Timestamp")) {
         type = "Date";
       } else if (type.equals("Long")) {
-        type = "long";
+        type = "Long";
       }
 
       sb.append("/**</br>");
