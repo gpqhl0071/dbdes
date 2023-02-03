@@ -28,6 +28,7 @@ public class QUIDServiceImpl implements QUIDService {
 
   /**
    * 插入模板方法
+   *
    * @return void
    * @param: [tableName]
    * @author gao peng
@@ -95,6 +96,7 @@ public class QUIDServiceImpl implements QUIDService {
 
   /**
    * 批量插入模板方法
+   *
    * @return void
    * @param: [tableName]
    * @author gao peng
@@ -343,6 +345,12 @@ public class QUIDServiceImpl implements QUIDService {
     if (fieldType.equals("Timestamp")) {
       String par1 = "new Timestamp(" + param1 + ".get" + fieldName + "().getTime())";
       StringUtil.writeLine(sb, "ps.set" + fieldType + "(index++, " + par1 + ");");
+    } else if (fieldType.equals("Int")) {
+      // ps.setInt(index++, bean.getIsValid() == null ? 0 : bean.getIsValid());
+      StringUtil.writeLine(sb, "ps.set" + fieldType + "(index++, "
+          + param1 + ".get" + fieldName + "() == null ? 0 : "
+          + param1 + ".get" + fieldName + "());");
+
     } else {
       StringUtil.writeLine(sb, "ps.set" + fieldType + "(index++, " + param1 + ".get" + fieldName + "());");
     }
